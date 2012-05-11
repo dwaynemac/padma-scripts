@@ -26,6 +26,8 @@ def finish_branch(story_id=nil)
   process.call `git commit --allow-empty -m '[Fixes ##{story_id}]Last commit'`
   process.call `git push`
   puts "Story finished successfully\n"
+
+  exec("git rebase -i origin/master")
 end
 
 case ARGV.length
