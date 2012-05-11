@@ -11,7 +11,7 @@ def create_branch(id, name)
     |command| output = command
     puts output
     if not $?.success? then
-      puts "Branch could't be created\n"
+      puts "Branch couldn't be created\n"
       Process.exit
     end
   end
@@ -21,7 +21,7 @@ def create_branch(id, name)
   process.call `git commit --allow-empty -m '[##{id}]First commit'`
   process.call `git push -u origin #{id + "-" + name}`
 
-  puts "Branch created successfully"
+  puts "Branch created successfully\n"
 end
 
 create_branch(ARGV[0], ARGV[1])
