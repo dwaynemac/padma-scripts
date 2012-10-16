@@ -13,10 +13,6 @@
   clients/logical_model
   clients/overmind
 ).each do |dir|
-  output = `cd #{dir} && git status`
-  if output =~ /nothing to commit/
-    puts "#{dir.gsub("/","")}: clean"
-  else
-    puts "==> #{dir.gsub("/","")}: DIRTY!"
-  end
+puts "fetching #{dir.gsub("/","")} origin"
+  puts `cd #{dir} && git fetch origin`
 end
