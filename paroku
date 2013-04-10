@@ -1,19 +1,40 @@
 #!/usr/bin/env ruby
 
+#
+# This script will run given heroku command in all padma modules hosted in heroku.
+# WARNING - this will simply forward the command to all apps, not checking if addons are available, etc.
+#
+# Usage:
+#   
+#    paroku production|staging heroku_command
+#
+# Example:
+#
+#    paroku production maintenance:on
+#
 def show_usage
   puts 'paroku environment heroku_command'
 end
 
 APP_NAMES = {
   'production' => %W(padma-accounts
-	       padma-activity-stream
-	       padma-contacts
-	       padma-crm
-	       padma-mailing
-	       padma-messaging
-	       padma-overmind
-	       padma-planning),
-  'staging' => []
+	             padma-activity-stream
+	             padma-contacts
+                     padma-crm
+	             padma-mailing
+	             padma-messaging
+	             padma-overmind
+	             padma-planning
+  ),
+  'staging' => %W(padma-accounts-staging
+                  padma-activity-stream-staging
+                  padma-contacts-staging
+                  padma-crm-staging
+                  padma-mailing-staging
+                  padma-messaging-staging
+                  padma-overmind-staging
+                  padma-planning-staging
+  )
 }
 
 unless ARGV.select{|arg| arg == '--app' || arg == '-r'}.empty?
