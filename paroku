@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+def show_usage
+  puts 'paroku environment heroku_command'
+end
+
+APP_NAMES = {
+  'production' => %W(padma-accounts
+	       padma-activity-stream
+	       padma-contacts
+	       padma-crm
+	       padma-mailing
+	       padma-messaging
+	       padma-overmind
+	       padma-planning),
+  'staging' => []
+}
+
+unless ARGV.select{|arg| arg == '--app' || arg == '-r'}.empty?
+  puts 'Cant use --app or -r' 
+  Process.exit
+end
+
+env = ARGV.shift
+
+unless env == 'production' || env == 'staging'
+  show_usage
+  Process.exit
+end
+
+APP_NAMES[env].each do |app_name|
+  puts `heroku #{ARGV.join(' ')} --app #{app_name}`  
+end
+
+Process.exit
